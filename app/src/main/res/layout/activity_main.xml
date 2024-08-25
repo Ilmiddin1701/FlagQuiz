@@ -7,18 +7,17 @@
     android:background="@drawable/flag_background"
     tools:context=".MainActivity">
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/image"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/uzb"
+        android:layout_height="170dp"
+        android:background="@drawable/uzb"
         app:layout_constraintBottom_toTopOf="@id/linear_1"
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.75"
-        tools:ignore="ContentDescription,ImageContrastCheck" />
+        app:layout_constraintWidth_percent="0.75" />
 
     <LinearLayout
         android:id="@+id/linear_1"
@@ -35,23 +34,22 @@
         android:id="@+id/linear_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@id/linear_3"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_1" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <LinearLayout
         android:id="@+id/linear_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_2" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
