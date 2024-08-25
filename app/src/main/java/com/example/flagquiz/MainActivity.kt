@@ -6,27 +6,24 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.children
 import com.example.flagquiz.Models.flag
 import com.example.flagquiz.databinding.ActivityMainBinding
 import java.util.Random
 
-
-class MainActivity : AppCompatActivity(), View.OnClickListener{
-
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private lateinit var flagArrayList: ArrayList<flag>
     private var count = 0
     private var countryName = ""
     private lateinit var buttonArratList:ArrayList<Button>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(binding.root)
 
         buttonArratList = ArrayList()
-
         createObject()
         btnJoylaCount()
     }
@@ -64,7 +61,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     private fun randomBtn(countryName: String?): ArrayList<Button> {
         val array = ArrayList<Button>()
         val arrayText = ArrayList<String>()
-
         for (c in countryName!!){
             arrayText.add(c.toString())
         }
@@ -76,7 +72,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             }
         }
         arrayText.shuffle()
-
         for (i in 0 until arrayText.size){
             val button = Button(this)
             button.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
@@ -95,7 +90,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             binding.linear2.children.forEach { button ->
                 if ((button as Button).text.toString() == button1.text.toString()){
                     button.visibility = View.VISIBLE
-                    countryName = countryName.substring(0,countryName.length-1)
+                    countryName = countryName.substring(0, countryName.length-1)
                     hasC = true
                 }
             }
@@ -103,7 +98,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 if ((button as Button).text.toString() == button1.text.toString()){
                     button.visibility = View.VISIBLE
                     if (!hasC){
-                        countryName = countryName.substring(0,countryName.length-1)
+                        countryName = countryName.substring(0, countryName.length-1)
                     }
                 }
             }
@@ -141,12 +136,3 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 }
-
-
-
-
-
-
-
-
-
