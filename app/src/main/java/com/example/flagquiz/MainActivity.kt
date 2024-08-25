@@ -2,18 +2,17 @@ package com.example.flagquiz
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.children
-import androidx.core.view.marginEnd
-import androidx.core.view.marginStart
 import com.example.flagquiz.Models.flag
 import com.example.flagquiz.databinding.ActivityMainBinding
+import java.util.Locale
 import java.util.Random
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -79,7 +78,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         for (i in 0 until arrayText.size){
             val button = Button(this)
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
-            button.textSize = 18f
+            button.textSize = 25f
             button.text = arrayText[i]
             button.layoutParams = params
             button.setTextColor(Color.BLACK)
@@ -89,7 +88,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             shape.shape = GradientDrawable.RECTANGLE
             shape.setColor(Color.WHITE)
             shape.cornerRadius = 8f
-//            shape.setStroke(2, Color.BLACK)
+            shape.setStroke(2, Color.BLACK)
             button.background = shape
 
             button.setOnClickListener(this)
@@ -120,22 +119,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }else{
             button1.visibility = View.INVISIBLE
-            countryName += button1.text.toString().toUpperCase()
+            countryName += button1.text.toString().uppercase(Locale.ROOT)
             val button2 = Button(this)
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
             button2.layoutParams = params
             button2.text = button1.text
-            button2.textSize = 30f
-            button2.setTextColor(Color.WHITE)
-            button2.setBackgroundColor(Color.TRANSPARENT)
-//            params.setMargins(5, 5, 5, 5)
+            button2.textSize = 25f
+            button2.setTextColor(Color.BLACK)
+            params.setMargins(5, 5, 5, 5)
 
-//            val shape = GradientDrawable()
-//            shape.shape = GradientDrawable.RECTANGLE
-//            shape.setColor(Color.BLUE)
-//            shape.cornerRadius = 8f
-//            shape.setStroke(2, Color.BLACK)
-//            button2.background = shape
+            val shape = GradientDrawable()
+            shape.shape = GradientDrawable.RECTANGLE
+            shape.setColor(Color.WHITE)
+            shape.cornerRadius = 8f
+            shape.setStroke(2, Color.BLACK)
+            button2.background = shape
+
             button2.setOnClickListener(this)
             buttonArratList.add(button2)
             binding.linear1.addView(button2)
@@ -144,7 +143,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun matnTogri() {
-        if (countryName == flagArrayList[count].name?.toUpperCase()){
+        if (countryName == flagArrayList[count].name?.uppercase(Locale.ROOT)){
             Toast.makeText(this, "successful", Toast.LENGTH_SHORT).show()
             if (count == flagArrayList.size-1){
                 count = 0
