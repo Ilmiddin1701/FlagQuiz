@@ -52,114 +52,131 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun btnJoyla(countryName: String?) {
-        val btnArray: ArrayList<Button> = randomBtn(countryName)
-        for (i in 0..5){
-            binding.linear2.addView(btnArray[i])
-        }
-        for (i in 6..11){
-            binding.linear3.addView(btnArray[i])
+        try {
+            val btnArray: ArrayList<Button> = randomBtn(countryName)
+            for (i in 0..5){
+                binding.linear2.addView(btnArray[i])
+            }
+            for (i in 6..11){
+                binding.linear3.addView(btnArray[i])
+            }
+        } catch (e: Exception) {
+            println("btnJoyla() = ${e.message}")
         }
     }
 
     private fun randomBtn(countryName: String?): ArrayList<Button> {
-        val array = ArrayList<Button>()
-        val arrayText = ArrayList<String>()
-        for (c in countryName!!){
-            arrayText.add(c.toString())
-        }
-        if (arrayText.size != 12){
-            val str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            for (i in arrayText.size until 12){
-                val random = Random().nextInt(str.length)
-                arrayText.add(str[random].toString())
+        try {
+            val array = ArrayList<Button>()
+            val arrayText = ArrayList<String>()
+            for (c in countryName!!){
+                arrayText.add(c.toString())
             }
-        }
-        arrayText.shuffle()
-        for (i in 0 until arrayText.size){
-            val button = Button(this)
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
-            button.textSize = 25f
-            button.text = arrayText[i]
-            button.layoutParams = params
-            button.setTextColor(Color.BLACK)
-            params.setMargins(5, 5, 5, 5)
+            if (arrayText.size != 12){
+                val str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                for (i in arrayText.size until 12){
+                    val random = Random().nextInt(str.length)
+                    arrayText.add(str[random].toString())
+                }
+            }
+            arrayText.shuffle()
+            for (i in 0 until arrayText.size){
+                val button = Button(this)
+                val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
+                button.textSize = 25f
+                button.text = arrayText[i]
+                button.layoutParams = params
+                button.setTextColor(Color.BLACK)
+                params.setMargins(5, 5, 5, 5)
 
-            val shape = GradientDrawable()
-            shape.shape = GradientDrawable.RECTANGLE
-            shape.setColor(Color.WHITE)
-            shape.cornerRadius = 8f
-            shape.setStroke(2, Color.BLACK)
-            button.background = shape
+                val shape = GradientDrawable()
+                shape.shape = GradientDrawable.RECTANGLE
+                shape.setColor(Color.WHITE)
+                shape.cornerRadius = 8f
+                shape.setStroke(2, Color.BLACK)
+                button.background = shape
 
-            button.setOnClickListener(this)
-            array.add(button)
+                button.setOnClickListener(this)
+                array.add(button)
+            }
+            return array
+        } catch (e: Exception) {
+            println("randomBtn() = ${e.message}")
+            return ArrayList()
         }
-        return array
     }
 
     override fun onClick(v: View?) {
-        val button1 = v as Button
-        if (buttonArratList.contains(button1)){
-            binding.linear1.removeView(button1)
-            var hasC = false
-            binding.linear2.children.forEach { button ->
-                if ((button as Button).text.toString() == button1.text.toString()){
-                    button.visibility = View.VISIBLE
-                    countryName = countryName.substring(0, countryName.length-1)
-                    hasC = true
-                }
-            }
-            binding.linear3.children.forEach { button ->
-                if ((button as Button).text.toString() == button1.text.toString()){
-                    button.visibility = View.VISIBLE
-                    if (!hasC){
+        try {
+            val button1 = v as Button
+            if (buttonArratList.contains(button1)){
+                binding.linear1.removeView(button1)
+                var hasC = false
+                binding.linear2.children.forEach { button ->
+                    if ((button as Button).text.toString() == button1.text.toString()){
+                        button.visibility = View.VISIBLE
                         countryName = countryName.substring(0, countryName.length-1)
+                        hasC = true
                     }
                 }
+                binding.linear3.children.forEach { button ->
+                    if ((button as Button).text.toString() == button1.text.toString()){
+                        button.visibility = View.VISIBLE
+                        if (!hasC){
+                            countryName = countryName.substring(0, countryName.length-1)
+                        }
+                    }
+                }
+            }else{
+                button1.visibility = View.INVISIBLE
+                countryName += button1.text.toString().uppercase(Locale.ROOT)
+                val button2 = Button(this)
+                val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
+                button2.layoutParams = params
+                button2.text = button1.text
+                button2.textSize = 25f
+                button2.setTextColor(Color.BLACK)
+                params.setMargins(5, 5, 5, 5)
+
+                val shape = GradientDrawable()
+                shape.shape = GradientDrawable.RECTANGLE
+                shape.setColor(Color.WHITE)
+                shape.cornerRadius = 8f
+                shape.setStroke(2, Color.BLACK)
+                button2.background = shape
+
+                button2.setOnClickListener(this)
+                buttonArratList.add(button2)
+                binding.linear1.addView(button2)
+                matnTogri()
             }
-        }else{
-            button1.visibility = View.INVISIBLE
-            countryName += button1.text.toString().uppercase(Locale.ROOT)
-            val button2 = Button(this)
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
-            button2.layoutParams = params
-            button2.text = button1.text
-            button2.textSize = 25f
-            button2.setTextColor(Color.BLACK)
-            params.setMargins(5, 5, 5, 5)
-
-            val shape = GradientDrawable()
-            shape.shape = GradientDrawable.RECTANGLE
-            shape.setColor(Color.WHITE)
-            shape.cornerRadius = 8f
-            shape.setStroke(2, Color.BLACK)
-            button2.background = shape
-
-            button2.setOnClickListener(this)
-            buttonArratList.add(button2)
-            binding.linear1.addView(button2)
-            matnTogri()
+        } catch (e: Exception) {
+            println("onClick() = ${e.message}")
         }
     }
 
     private fun matnTogri() {
-        if (countryName == flagArrayList[count].name?.uppercase(Locale.ROOT)){
-            Toast.makeText(this, "successful", Toast.LENGTH_SHORT).show()
-            if (count == flagArrayList.size-1){
-                count = 0
+        try {
+            if (countryName == flagArrayList[count].name?.uppercase(Locale.ROOT)){
+                Toast.makeText(this, "successful", Toast.LENGTH_SHORT).show()
+                if (count == flagArrayList.size-1){
+                    count = 0
+                }else{
+                    count++
+                }
+                btnJoylaCount()
             }else{
-                count++
+                if (countryName.length == flagArrayList[count].name?.length){
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                    binding.linear1.removeAllViews()
+                    binding.linear2.removeAllViews()
+                    binding.linear3.removeAllViews()
+                    btnJoyla(flagArrayList[count].name)
+                    countryName = ""
+                }
             }
-            btnJoylaCount()
-        }else{
-            if (countryName.length == flagArrayList[count].name?.length){
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-                binding.linear1.removeAllViews()
-                binding.linear2.removeAllViews()
-                binding.linear3.removeAllViews()
-                btnJoyla(flagArrayList[count].name)
-                countryName = ""
-            }
+        } catch (e: Exception) {
+            println("matnTogri() = ${e.message}")
         }
     }
 }
